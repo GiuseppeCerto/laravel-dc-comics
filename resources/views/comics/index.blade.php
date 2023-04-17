@@ -6,6 +6,15 @@
     <div class="main_jumbo"></div>
     <div class="bg_color">
         <div class="main_container">
+            <div class="container mt-4">
+                <div class="row">
+                  <div class="col-12">
+                    <a class="btn btn-primary" href="{{ route('comics.create') }}">
+                      Create new Comic
+                    </a>
+                  </div>
+                </div>
+              </div>
             <table class="table">
                 <thead>
                     <tr>
