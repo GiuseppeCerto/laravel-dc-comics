@@ -27,25 +27,31 @@
                 <tbody>
                     @foreach ($comics as $comic)
                     <tr>
-                    <td>
-                        <img src="{{ $comic->thumb }}" alt="" height="140">
-                    </td>
-                    <th scope="row">
-                        {{ $comic->price }}
-                    </th>
-                    <td>
-                        <a href="{{ route('comics.show',$comic->id) }}">
-                        {{ $comic->title }}
-                        </a>
-                    </td>
+                        <td>
+                            <img src="{{ $comic->thumb }}" alt="" height="140">
+                        </td>
+                        <th scope="row">
+                            {{ $comic->price }}
+                        </th>
+                        <td>
+                            <a href="{{ route('comics.show',$comic->id) }}">
+                            {{ $comic->title }}
+                            </a>
+                        </td>
 
-                    <th scope="row">
-                        {{ $comic->description }}
-                    </th>
-                    
-                    <td>
-                        <a class="btn btn-secondary btn-sm" href="{{ route('comics.edit',$comic) }}">Edit</a>
-                    </td>
+                        <th scope="row">
+                            {{ $comic->description }}
+                        </th>
+                        <td>
+                            <div class="d-flex">
+                            <a class="btn btn-secondary btn-sm" href="{{ route('comics.edit',$comic) }}">Edit</a>
+                            <form action="{{ route('comics.destroy',$comic) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <input type="submit" class="btn btn-danger btn-sm" value="Delete">
+                            </form>
+                            </div>
+                        </td>
                     </tr>
                         
                     @endforeach
