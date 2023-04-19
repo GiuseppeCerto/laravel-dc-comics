@@ -31,21 +31,30 @@ class ComicController extends Controller
 
     public function store(Request $request)
     {
-        $data = $request->all();
+        $data = $request->validate([
+            'title' => 'required|max:255|min:3',
+            'description' => 'required|string',
+            'thumb' => 'required|max:255|url',
+            'price' => 'required|numeric',
+            'series' => 'required|string',
+            'sale_date' => 'required|date',
+            'type' => 'required|string'
+        ]);
 
-        $new_comic = new Comic();
+        // $data = $request->all();
 
-        $new_comic->title = $data['title'];
-        $new_comic->description = $data['description'];
-        $new_comic->thumb = $data['thumb'];
-        $new_comic->price = $data['price'];
-        $new_comic->series = $data['series'];
-        $new_comic->sale_date = $data['sale_date'];
-        $new_comic->type = $data['type'];
+        // $new_comic = new Comic();
 
-        $new_comic->save();
+        // $new_comic->title = $data['title'];
+        // $new_comic->description = $data['description'];
+        // $new_comic->thumb = $data['thumb'];
+        // $new_comic->price = $data['price'];
+        // $new_comic->series = $data['series'];
+        // $new_comic->sale_date = $data['sale_date'];
+        // $new_comic->type = $data['type'];
 
-        // return redirect()->route('pastas.show', $new_pasta);
+        // $new_comic->save();
+
         return to_route('comics.show', $new_comic);
     }
 
@@ -54,19 +63,37 @@ class ComicController extends Controller
         return view('comics.edit', compact('comic'));
     }
 
+    public function validation(Request $request)
+    {
+        return $request->validate([
+            'title' => 'required|max:255|min:3',
+            'description' => 'required|string',
+            'thumb' => 'required|max:255|url',
+            'price' => 'required|numeric',
+            'series' => 'required|string',
+            'sale_date' => 'required|date',
+            'type' => 'required|string'
+        ]);
+    }
+
+
     public function update(Request $request, Comic $comic)
     {
-        $data = $request->all();
+        // $data = $request->all();
 
-        $comic->title = $data['title'];
-        $comic->description = $data['description'];
-        $comic->thumb = $data['thumb'];
-        $comic->price = $data['price'];
-        $comic->series = $data['series'];
-        $comic->sale_date = $data['sale_date'];
-        $comic->type = $data['type'];
+        // $comic->title = $data['title'];
+        // $comic->description = $data['description'];
+        // $comic->thumb = $data['thumb'];
+        // $comic->price = $data['price'];
+        // $comic->series = $data['series'];
+        // $comic->sale_date = $data['sale_date'];
+        // $comic->type = $data['type'];
 
-        $comic->save();
+        // $comic->save();
+
+        $data = $this->validation($request);
+
+        $comic->update($data);
 
         return to_route('comics.show', $comic);
     }
